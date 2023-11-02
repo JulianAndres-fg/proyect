@@ -1,0 +1,14 @@
+<div class="container mt-5">
+    <%= form_for(@category) do |f| %>
+    <div class="mb-3">
+        <%=f.label :name, "Name", class: "form-label"%>
+        <%=f.text_field :name, class: "form-control"%>
+    </div>
+     <div class="mb-3">
+        <%=f.label :description, "Description", class: "form-label"%>
+        <%=f.text_area :description, class: "form-control"%>
+    </div>
+        <%=f.submit "Guardar", class: "btn btn-success"%>
+        <%= link_to "Back", categories_path, class: "btn btn-secondary" %>
+<% end %>
+</div>

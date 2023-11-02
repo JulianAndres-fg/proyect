@@ -1,0 +1,55 @@
+<%= render "messages" %>
+
+
+  
+</div>
+<div class="container mt-5">
+  <div class="alert alert-warning text-center" role="alert">
+  <%= link_to "All", products_path, class: "text-decoration-none" %>
+  <%= render partial: "category", collection: @categories %>
+  </div>
+
+   <%= form_with url: products_path, method: :get do |f| %>
+   <div class="row">
+      <div class="col-md-3">
+         <%= f.number_field :min_price, placeholder: "insert min price", onChange: "this.form.requestSubmit()", class: "form-control", value: params[:min_price]%>
+      </div>
+         <div class="col-md-3">
+         <%= f.number_field :max_price, placeholder: "insert max price", onChange: "this.form.requestSubmit()", class: "form-control", value: params[:max_price]%>
+      </div>
+           <div class="col-md-3">
+         <%= f.text_field :search, placeholder: "Search", onChange: "this.form.requestSubmit()", class: "form-control", value: params[:search]%>
+      </div>
+            <div class="col-md-3">
+        <%=f.select :order_by, options_for_select([["new", "recent"],["inexpensive","cheap"],["expensive","pricey"]],params[:order_by]),{},{onChange: "this.form.requestSubmit()", class: "form-select"}%>
+      </div>
+         
+         
+   </div>
+   
+    <% end %>
+
+<% if @products.any? %>
+
+     <% @products.each do |product| %>
+  <div class="card d-inline-block m-3" style="width: 15rem;">
+    <%= image_tag product.photo, class: "card-img-top", size: "200x200" %>
+    <div class="card-body">
+      <h5 class="card-title"><%= link_to product.name, product_path(product), class: "text-decoration-none text-primary"%></h5>
+      <p class="card-text">$<%=product.precio%></p>
+    </div>
+    <%= link_to "Go somewhere", edit_product_path(product), class: "btn btn-primary d-block" %>
+  </div>
+   
+      
+<% end %>
+   
+<% else %>
+   <h1 class="text-center">No hay productos aun</h1>
+<% end %>
+
+
+
+<%= link_to "Add product", new_product_path, class: "btn btn-success m-5 d-block" %>
+
+</div>

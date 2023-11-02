@@ -1,0 +1,34 @@
+<%= render "products/messages" %>
+<div class="container">
+    <table class="table table-striped mt-5">
+    <thead>
+    <tr class="table-dark">
+      <th scope="col">ID</th>
+      <th scope="col">NAME</th>
+      <th scope="col">Description</th>
+      <th scope="col">ACTIONS</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @categories.each do |category| %>
+        <tr>
+      <th scope="row"><%=category.id%></th>
+      <td><%=category.name%></td>
+      <td><%=category.description%></td>
+      <td>
+        <%= link_to "Edit", edit_category_path(category), class: "btn btn-primary" %>     
+        <%= link_to "Eliminar", category_path(category), data: { 
+        turbo_method: :delete,
+        turbo_confirm: category.products.blank? ?
+        "¿estas seguro de eliminar la categoria #{category.name}" :
+        "¿estas seguro de eliminar la categoria #{category.name} asociada a los productos #{category.products.pluck(:name).join(', ')}?",
+       
+        }, class: "btn btn-danger" %>
+      </td>
+    </tr>
+  <% end %>
+
+  </tbody>
+</table>
+</div>
+<%= link_to "Add category", new_category_path, class: "btn btn-success m-5" %>

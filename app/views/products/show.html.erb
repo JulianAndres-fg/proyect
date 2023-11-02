@@ -1,0 +1,29 @@
+<div class="container mt-5 d-flex flex-row">
+  <%= image_tag @product.photo, class: "col-6", style: "object-fit: cover; max-width: 500px; max-height: 500px;" %>
+  <div class="card col-6" style="width: 30rem; margin-left: 150px;">
+    <div class="card-body">
+      <h1 class="card-title text-center text-primary"><%= @product.name %></h1>
+     
+      <h6 class="card-subtitle mb-2 text-muted"></h6>
+      <p class="card-text"><%=@product.description%></p>
+      <% if @product.category_id.blank? %>
+         <div class="alert alert-danger" role="alert">
+            no associated category
+        </div>
+      <% else %>
+         <div class="alert alert-secondary" role="alert">
+            <%=@product.category.name%>
+        </div>
+      <% end %>
+         <div class="alert alert-success" role="alert">
+            $<%=@product.precio%>
+        </div>
+    </div>
+    <div class="card-footer">
+      <%= link_to "Eliminar", product_path(@product), data: { 
+        turbo_method: :delete,
+        turbo_confirm: "¿Estas seguro de eliminar el producto #{@product.name}?"
+        }, class: "btn btn-danger d-block" %>
+    </div>
+  </div>
+</div>
